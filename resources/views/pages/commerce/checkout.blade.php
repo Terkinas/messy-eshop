@@ -221,6 +221,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                         <!-- omniva imput -->
 
                         <div class="col-span-6 ">
+                            <label class="block mb-1 text-sm text-gray-600" for="terminalCode">
+                                Omniva terminal
+                            </label>
                             <label class="hidden"><input type="radio" name="terminalCode" id="map-test" checked required>OmnivaMap - <span>ON</span></label>
                             <!-- <label><input type="radio" name="terminalCode" id="map-test-off">OmnivaMap - <span>OFF</span></label> -->
                         </div>
@@ -317,8 +320,8 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                             <div class="flex justify-between mb-2">
                                 <p class="font-bold">Total:</p>
                                 <div class="flex">
-                                    <p class="text-gray-800 mr-2 font-bold">€{{number_format($totalPrice / 100 + 10,2)}}</p>
-                                    <p class="text-gray-400 text-xs py-1">( Shipping fee €{{ number_format(10, 2)}} ) </p>
+                                    <p class="text-gray-800 mr-2 font-bold">€{{number_format($totalPrice / 100 + env('SHIPPING_FEE') / 100,2)}}</p>
+                                    <p class="text-gray-400 text-xs py-1">( Shipping fee €{{ number_format(env('SHIPPING_FEE') / 100, 2)}} ) </p>
                                 </div>
                             </div>
 
@@ -352,7 +355,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                                 <i id="payloadingicon" class="opacity-0 fa-solid fa-circle-notch animate-spin text-white"></i>
                                 <span id="payicon" class="mr-2"><i class="fas fa-donate">
 
-                                    </i></span>Pay</button>
+                                    </i></span>Apmokėti</button>
                         </div>
 
 
@@ -1087,13 +1090,16 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
         width: 100%;
     }
 
+    /* terminal style */
     .omniva-terminals-list .omniva-dropdown {
         border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+
         border-radius: 4px;
         word-wrap: normal;
         overflow: hidden;
-        height: 40px;
-        line-height: 20px;
+        height: 44px;
+        line-height: 22px;
         width: 100%;
         position: relative;
         cursor: pointer;

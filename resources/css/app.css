@@ -513,7 +513,7 @@ ol li {
 }
 
 .omniva-terminals-list .omniva-dropdown {
-  border: 1px solid #aaa;
+  border: 1px solid #fff;
   border-radius: 4px;
   word-wrap: normal;
   overflow: hidden;
@@ -705,4 +705,8 @@ ol li {
   .omniva-scrollbar {
     max-height: 40vh;
   }
+}
+
+ul {
+  list-style: none;
 }

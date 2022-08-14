@@ -92,7 +92,7 @@
                     <ul class="text-gray-600">
                         <li class="text-green-400">Visa card **** Unknown</li>
                         <li>Shipping fee: €10.00</li>
-                        <li>Total paid: €{{number_format($order->billing_subtotal / 100 + 10, 2)}}</li>
+                        <li>Total paid: €{{number_format($order->billing_subtotal / 100 + env('SHIPPING_FEE') / 100, 2)}}</li>
                     </ul>
                 </div>
             </div> <!-- grid.// -->

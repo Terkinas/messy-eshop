@@ -526,7 +526,9 @@
                                                                         </tr>
                                                                         <tr style="border-collapse:collapse">
 
-                                                                            <td style="padding:0;Margin:0"><span style="font-size:10px;line-height:8px; color:#aaa">{{ $omniva->comment}}</span></td>
+                                                                            <td style="padding:0;Margin:0"><span style="font-size:10px; color:#aaa">
+                                                                                    <p style="line-height:8px;">{{ $omniva->comment}}</p>
+                                                                                </span></td>
                                                                         </tr>
                                                                     </table>
                                                                     <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'Nunito', 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p>

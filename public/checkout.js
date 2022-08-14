@@ -39,14 +39,14 @@
             document.getElementById('payloadingicon').classList.add('opacity-100');
             
             
-            if(amount=='' || customer_email==''){
+            if(amount=='' || customer_email=='' ){
                 alert('Type in your email');
                 document.getElementById('payicon').style.display = 'inline';
             document.getElementById('payloadingicon').classList.remove('opacity-100');
             donateButton.prop('disabled',false);
                 return;
             }
-            if(terminal_code == '') {
+            if(terminal_code == 'on' || terminal_code == null || terminal_code == true) {
                 alert('Choose terminal');
                 document.getElementById('payicon').style.display = 'inline';
             document.getElementById('payloadingicon').classList.remove('opacity-100');

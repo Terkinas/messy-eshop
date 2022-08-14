@@ -45,7 +45,7 @@
 </div>
 
 <nav class="flex bg-gray-50 px-3  md:w-full md:mx-auto pt-8" aria-label="Breadcrumb">
-    <ol class="inline-flex items-center space-x-1 md:space-x-3 mx-3 md:px-8">
+    <ul class="inline-flex items-center space-x-1 md:space-x-3 mx-3 md:px-8">
         <li class="inline-flex items-center">
             <a href="#" class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
 
@@ -64,7 +64,7 @@
                 <span class="ml-1 text-sm font-semibold text-gray-300 md:ml-2 dark:text-gray-400">All</span>
             </div>
         </li>
-    </ol>
+    </ul>
 </nav>
 
 

@@ -1603,21 +1603,7 @@ class StripeController extends Controller
                 'error' => null,
             ]);
 
-            // omniva info
-            foreach ($terminals as $terminal) {
-                if ($terminal[3] == $data['metadata']['terminal_code']) {
-                    $omniva = Omniva::create([
-                        'order_id' => $order->id ? $order->id : null,
-                        'name' => $terminal[0],
-                        'xcordinate' => $terminal[1],
-                        'ycordinate' => $terminal[2],
-                        'terminalId' => $terminal[3],
-                        'city' => $terminal[4],
-                        'street' => $terminal[5],
-                        'comment' => $terminal[6],
-                    ]);
-                }
-            }
+
 
 
 
@@ -1643,6 +1629,24 @@ class StripeController extends Controller
 
             // dd($order, $request->session()->get('cart'));
 
+
+            // omniva info
+            if (isset($data['metadata']['terminal_code'])) {
+                foreach ($terminals as $terminal) {
+                    if ($terminal[3] == $data['metadata']['terminal_code']) {
+                        $omniva = Omniva::create([
+                            'order_id' => $order->id ? $order->id : null,
+                            'name' => $terminal[0],
+                            'xcordinate' => $terminal[1],
+                            'ycordinate' => $terminal[2],
+                            'terminalId' => $terminal[3],
+                            'city' => $terminal[4],
+                            'street' => $terminal[5],
+                            'comment' => $terminal[6],
+                        ]);
+                    }
+                }
+            }
 
             // return $order;
 
