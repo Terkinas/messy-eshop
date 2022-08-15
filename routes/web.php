@@ -77,6 +77,7 @@ Route::prefix('products')->group(function () {
     Route::get('/search', [ProductsController::class, 'search'])->name('products.search');
 
     Route::get('/{category}', [ProductsController::class, 'indexCategory'])->name('products.category');
+    Route::get('/{category}/search', [ProductsController::class, 'searchCategory'])->name('products.searchCategory');
 });
 
 

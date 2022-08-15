@@ -325,29 +325,48 @@ class ProductsController extends Controller
             if ($request->sortby) {
                 switch ($request->sortby) {
                     case 'plowhigh':
-                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('price', 'asc')->where('active', 1)->paginate(6)->onEachSide(1);
+                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('price', 'asc')->where('active', 1)->where('category', $category->id)->paginate(6)->onEachSide(1);
                         break;
                     case 'phighlow':
-                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('price', 'desc')->where('active', 1)->paginate(6)->onEachSide(1);
+                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('price', 'desc')->where('active', 1)->where('category', $category->id)->paginate(6)->onEachSide(1);
                         break;
                     case 'tnew':
-                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('created_at', 'desc')->where('active', 1)->paginate(6)->onEachSide(1);
+                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('created_at', 'desc')->where('active', 1)->where('category', $category->id)->paginate(6)->onEachSide(1);
                         break;
                     case 'bhigh':
-                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(6)->onEachSide(1);
+                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->where('category', $category->id)->paginate(6)->onEachSide(1);
                         break;
                     default:
-                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(6)->onEachSide(1);
+                        $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->where('category', $category->id)->paginate(6)->onEachSide(1);
                         break;
                 }
             } else {
-                $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(6)->onEachSide(1);
+                $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->where('category', $category->id)->paginate(6)->onEachSide(1);
             }
             $productsPopular = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(4)->onEachSide(1);
             $chosedCategory = $category;
             $categories = Category::all();
 
             return view('pages.commerce.catalog', compact('products', 'productsPopular', 'categories', 'chosedCategory'));
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect()->route('404')->with('error', $e);
+        }
+    }
+
+    public function searchCategory(Request $request, Category $category)
+    {
+        try {
+
+            $keyword = ucwords($request->keyword);
+
+            $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'image_path', 'subtitle', 'category', 'quantity')->where('category', $category->id)->where('name', 'LIKE', '%' . $keyword . '%')->orWhere('subtitle', 'LIKE', '%' . $keyword . '%')->orderBy('quantity_sold', 'asc')->paginate(6)->onEachSide(1);
+
+            $productsPopular = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(4)->onEachSide(1);
+            $categories = Category::all();
+
+            $results = 'These are results we were able to found:';
+            return view('pages.commerce.catalog', compact('products', 'results', 'productsPopular', 'categories', 'category'));
         } catch (\Exception $e) {
             dd($e);
             return redirect()->route('404')->with('error', $e);
