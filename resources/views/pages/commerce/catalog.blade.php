@@ -39,7 +39,10 @@
 
     <img src="{{ asset('images/commerce/catalog/heets-slate-header.jpg') }}" class="h-full  opacity-50 w-full m-auto object-contain bg-gray-50" />
     <div class="">
-        <h4 class="text-2xl font-bold text-white absolute w-full text-center h-full flex justify-center top-1/3 uppercase">Disposable vapes</h4>
+        @if (isset($chosedCategory))
+        <h4 class="text-2xl font-bold text-white absolute w-full text-center h-full flex justify-center top-1/3 uppercase">{{$chosedCategory->name}}</h4>
+        @endif
+
         <h4 class="text-xs font-bold text-white absolute w-full text-center h-full flex justify-center top-2/3 uppercase">Categories <span><i class="fa-solid fa-caret-down text-white mx-1"></i></span></h4>
     </div>
 </div>
@@ -231,13 +234,50 @@
                         </select> -->
 
 
-                        <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected="">Sort By</option>
-                            <option value="US">Price: Lowest first</option>
-                            <option value="CA">Price: Biggest first</option>
-                            <option value="FR">Time: Newly listed</option>
-                            <option value="DE">Reviews: Highest first</option>
-                        </select>
+                        @if (isset($chosedCategory))
+                        <form action="{{ route('products.category', [$chosedCategory]) }}" method="get" class="block w-1/3">
+                            @else
+                            <form action="{{ route('products.index') }}" method="get" class="block w-1/3">
+                                @endif
+                                <!-- <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> -->
+                                <select onchange="this.form.submit()" name="sortby" id="sortbyId" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                    @if (Request::get('sortby') != null)
+                                    @switch(Request::get('sortby'))
+                                    @case('plowhigh')
+                                    <option selected="">Price: Lowest first</option>
+                                    @break
+
+                                    @case('phighlow')
+                                    <option selected="">Price: Biggest first</option>
+                                    @break
+
+                                    @case('tnew')
+                                    <option selected="">Time: Newly listed</option>
+                                    @break
+
+                                    @case('bhigh')
+                                    <option selected="">Popularity: Highest first</option>
+                                    @break
+
+
+                                    @default
+                                    <option selected="">Sort By</option>
+
+                                    @endswitch
+
+                                    @else
+                                    <option selected="">Sort By</option>
+                                    @endif
+
+                                    <option value="plowhigh">Price: Lowest first</option>
+                                    <option value="phighlow">Price: Biggest first</option>
+                                    <option value="tnew">Time: Newly listed</option>
+                                    <option value="bhigh">Popularity: Highest first</option>
+                                </select>
+
+                            </form>
+
+
 
                     </div>
 
