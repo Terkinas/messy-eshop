@@ -40,7 +40,7 @@
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-80 max-h-80 sm:h-80 sm:max-h-80 object-contain object-center rounded " src="{{ asset('images/products/' . $product[0]->image_path) }}">
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 class="text-xs uppercase title-font text-gray-500 tracking-widest">{{ $product[0]->category }}</h2>
+                <h2 class="text-xs uppercase title-font text-gray-500 tracking-widest">{{ $categories[$product[0]->category - 1]->name }}</h2>
                 <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ $product[0]->name }}</h1>
                 <div class="flex mb-4">
                     <a href="#productReviews" class="flex items-center">

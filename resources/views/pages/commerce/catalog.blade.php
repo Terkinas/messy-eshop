@@ -221,13 +221,27 @@
                     @endif
 
                     @if(count($products) > 0)
-                    <div class="w-full mx-auto my-2 md:px-0 flex justify-between">
-                        <h5 class="text-gray-400 mx-2">Disposable vapes</h5>
-                        <i class="fa-solid fa-sort mx-2"></i>
+                    <div class="w-full mx-auto my-2 md:px-0 flex justify-between mb-4 ">
+                        <h5 class="text-gray-400 mx-2 flex my-2">Best Match</h5>
+                        <!-- <select>
+                            <i class="fa-solid fa-sort mx-2"></i>
+                            <option>hea</option>
+                            <option>heddda</option>
+                            <option>heddddasa</option>
+                        </select> -->
+
+
+                        <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected="">Sort By</option>
+                            <option value="US">Price: Lowest first</option>
+                            <option value="CA">Price: Biggest first</option>
+                            <option value="FR">Time: Newly listed</option>
+                            <option value="DE">Reviews: Highest first</option>
+                        </select>
+
                     </div>
 
                     <div class="grid gap-4 grid-cols-2 sm:grid-cols-3 sm:max-w-sm sm:mx-auto sm:max-w-full pb-8">
-
 
                         @foreach ($products as $product)<div class="">
                             @if ($product->quantity <= 0) <a href="{{ route('products.show', ['id' => $product->id ,'slug' => $product->urltag]) }}" class=" flex flex-col overflow-hidden opacity-50 ">
@@ -339,7 +353,7 @@
         <div class="hidden sm:grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
             @foreach ($productsPopular as $popular)
 
-            <a href="{{ route('products.show', ['id' => $product->id ,'slug' => $product->urltag]) }}" class=" flex flex-col overflow-hidden ">
+            <a href="{{ route('products.show', ['id' => $popular->id ,'slug' => $popular->urltag]) }}" class=" flex flex-col overflow-hidden ">
 
                 <img src="{{ asset('images/products/' . $popular->image_path) }}" alt="product image" class="scale-75 rounded-lg">
             </a>

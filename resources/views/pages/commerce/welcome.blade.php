@@ -135,7 +135,23 @@
                             <!-- <a class="text-center text-gray-900  border-1 border-grey-100 py-3 px-6 font-semibold focus:outline-none hover:bg-gray-50 bg-gray-100 rounded text-sm w-24 sm:w-52 whitespace-nowrap">Sign Up</a> -->
                         </div>
 
-                        <!-- <div class="md:mx-auto flex flex-nowrap lg:flex-row md:flex-col justify-center sm:justify-start scale-90 my-3 sm:scale-100">
+                        <section class="pt-10 sm:w-2/3 mx-auto">
+                            <div class="container max-w-screen-xl mx-auto px-4">
+
+                                <nav class="grid grid-cols-3 sm:grid-cols-{{count($categories)}}  gap-x-3 gap-y-6">
+                                    @foreach ($categories as $category)
+                                    <a href="{{ route('products.category', [$category]) }}" class="group">
+                                        <div class="flex items-center justify-center w-16 h-16 mx-auto mb-2 rounded bg-gray-100 group-hover:bg-gray-200 transition duratios-200">
+                                            <img width="32" height="32" src="{{ asset('images/commerce/categories/icons/category' . strval($category->id)) . '.png' }}">
+                                            <!-- <i class="fa-solid fa-flask-vial"></i> -->
+                                        </div>
+                                        <p class="text-center text-gray-600 group-hover:text-gray-400 text-xs font-bold ">{{ $category->name }} </p>
+                                    </a>
+                                    @endforeach
+                                </nav>
+                            </div>
+
+                            <!-- <div class="md:mx-auto flex flex-nowrap lg:flex-row md:flex-col justify-center sm:justify-start scale-90 my-3 sm:scale-100">
                             <button class="bg-gray-100 md:bg-white inline-flex pt-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 512 512">
                                     <path d="M99.617 8.057a50.191 50.191 0 00-38.815-6.713l230.932 230.933 74.846-74.846L99.617 8.057zM32.139 20.116c-6.441 8.563-10.148 19.077-10.148 30.199v411.358c0 11.123 3.708 21.636 10.148 30.199l235.877-235.877L32.139 20.116zM464.261 212.087l-67.266-37.637-81.544 81.544 81.548 81.548 67.273-37.64c16.117-9.03 25.738-25.442 25.738-43.908s-9.621-34.877-25.749-43.907zM291.733 279.711L60.815 510.629c3.786.891 7.639 1.371 11.492 1.371a50.275 50.275 0 0027.31-8.07l266.965-149.372-74.849-74.847z"></path>

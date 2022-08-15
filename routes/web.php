@@ -75,6 +75,8 @@ Route::prefix('products')->group(function () {
     // Route::get('/preview/{id}', [ProductsController::class, 'show'])->name('products.show');
     Route::get('/preview/{id}/{slug}', [ProductsController::class, 'show'])->name('products.show');
     Route::get('/search', [ProductsController::class, 'search'])->name('products.search');
+
+    Route::get('/{category}', [ProductsController::class, 'indexCategory'])->name('products.category');
 });
 
 

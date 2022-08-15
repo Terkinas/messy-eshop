@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\MadePurchase;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\User;
@@ -21,7 +22,8 @@ class ProductsController extends Controller
         try {
             $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'image_path', 'subtitle', 'quantity', 'category')->orderBy('created_at', 'desc')->where('active', 1)->paginate(7)->onEachSide(1);
             $topSellers = Product::select('id', 'name', 'urltag', 'price', 'color', 'image_path', 'subtitle', 'quantity', 'category')->orderBy('size', 'asc')->where('active', 1)->where('quantity', '>', 0)->paginate(2)->onEachSide(1);
-            return view('pages.commerce.welcome', compact('products', 'topSellers'));
+            $categories = Category::all();
+            return view('pages.commerce.welcome', compact('products', 'topSellers', 'categories'));
         } catch (\Exception $e) {
             return redirect()->route('404')->with('error', $e);
         }
@@ -33,7 +35,9 @@ class ProductsController extends Controller
             $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(6)->onEachSide(1);
 
             $productsPopular = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(4)->onEachSide(1);
-            return view('pages.commerce.catalog', compact('products', 'productsPopular'));
+
+            $categories = Category::all();
+            return view('pages.commerce.catalog', compact('products', 'productsPopular', 'categories'));
         } catch (\Exception $e) {
             return redirect()->route('404')->with('error', $e);
         }
@@ -48,7 +52,8 @@ class ProductsController extends Controller
     {
         try {
             if (auth()->user()->admin) {
-                return view('pages.admin.create');
+                $categories = Category::all();
+                return view('pages.admin.create', compact('categories'));
             } else {
                 return redirect()->route('404');
             }
@@ -159,6 +164,7 @@ class ProductsController extends Controller
             $reviews = Review::select('id', 'name', 'heading', 'description', 'rating', 'created_at')->where('product_id', $id)->where('accepted', true)->orderBy('created_at', 'desc')->paginate(6)->onEachSide(1);
             $product = Product::select('id', 'name', 'price', 'urltag', 'color', 'category', 'description', 'size', 'quantity', 'quantity_sold', 'image_path')->where('id', $id)->get();
             $reviewsRatings = Review::select('rating')->where('product_id', $id)->where('accepted', true)->get();
+            $categories = Category::all();
 
             $avarageRate = 0;
             if ($reviews->total() > 0) {
@@ -168,7 +174,7 @@ class ProductsController extends Controller
             }
 
 
-            return view('pages.commerce.preview', compact('product', 'reviews', 'avarageRate'));
+            return view('pages.commerce.preview', compact('product', 'reviews', 'avarageRate', 'categories'));
         } catch (\Exception $e) {
             return redirect()->route('404')->with('error', $e);
         }
@@ -195,7 +201,8 @@ class ProductsController extends Controller
         try {
             if (isset(auth()->user()->admin)) {
                 $product = Product::find($id)->get();
-                return view('pages.admin.edit', compact('product'));
+                $categories = Category::all();
+                return view('pages.admin.edit', compact('product', 'categories'));
             }
         } catch (\Exception $e) {
             return redirect()->route('404')->with('error', $e);
@@ -280,10 +287,26 @@ class ProductsController extends Controller
             $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'image_path', 'subtitle', 'category', 'quantity')->where('name', 'LIKE', '%' . $keyword . '%')->orWhere('subtitle', 'LIKE', '%' . $keyword . '%')->orderBy('quantity_sold', 'asc')->paginate(6)->onEachSide(1);
 
             $productsPopular = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(4)->onEachSide(1);
-
+            $categories = Category::all();
 
             $results = 'These are results we were able to found:';
             return view('pages.commerce.catalog', compact('products', 'results', 'productsPopular'));
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect()->route('404')->with('error', $e);
+        }
+    }
+
+    public function indexCategory(Category $category)
+    {
+
+        try {
+            $products = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->where('category', $category->id)->paginate(6)->onEachSide(1);
+            $productsPopular = Product::select('id', 'name', 'urltag', 'price', 'color', 'quantity', 'image_path', 'subtitle', 'category')->orderBy('quantity_sold', 'desc')->where('active', 1)->paginate(4)->onEachSide(1);
+
+            $categories = Category::all();
+
+            return view('pages.commerce.catalog', compact('products', 'productsPopular', 'categories'));
         } catch (\Exception $e) {
             dd($e);
             return redirect()->route('404')->with('error', $e);

@@ -42,7 +42,16 @@
 
                     <div class="mb-4">
                         <label class="block mb-1"> Kategorija </label>
-                        <input value="{{ $product[0]->category }}" name="category" type="text" class="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full" placeholder="Type here" />
+                        <!-- <input value="{{ $product[0]->category }}" name="category" type="text" class="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full" placeholder="Type here" /> -->
+                        <select name="category" class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-2/4 sm:w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="{{ $product[0]->category }}" selected="">{{ $categories[$product[0]->category - 1]->name }}</option>
+                            @foreach ($categories as $key=>$category)
+                            @if ($product[0]->category != $category->id)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endif
+                            @endforeach
+
+                        </select>
                     </div>
 
                     <div class="mb-4">

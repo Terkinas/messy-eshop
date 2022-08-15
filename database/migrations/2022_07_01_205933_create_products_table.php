@@ -23,7 +23,10 @@ return new class extends Migration
             $table->string('subtitle');
             $table->string('description');
 
-            $table->string('category');
+            //$table->string('category');
+            $table->bigInteger('category')->unsigned()->nullable();
+            $table->foreign('category')->references('id')->on('categories')
+                ->onUpdate('cascade')->onDelete('set null');
 
             $table->string('color');
             $table->string('size');
