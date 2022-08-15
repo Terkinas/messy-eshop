@@ -71,13 +71,10 @@ class ProductFactory extends Factory
                 'category' => 1,
                 'subtitle' => 'lorem da lorem',
                 'description' => '<b>Specifications</b>:<br />
-                    20mg Nicotine Salt (2%) E-Liquid <br />
                     PG/VG: 50:50 <br />
-                    Flavour Notes: Watermelon, Strawberry, Apple <br />
                     Made in the UK <br />
                     Bottle size: 10ml <br />
-                    Nicotine Per Puff: 66mcg <br />
-                    Battery: 550mAh',
+                    Nicotine Per Puff: 66mcg',
                 'color' => $randomColors[rand(0, count($randomColors) - 1)],
                 'size' => rand(30, 44),
                 'price' => rand(800, 1600),
