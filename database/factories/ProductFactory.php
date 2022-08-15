@@ -159,7 +159,6 @@ class ProductFactory extends Factory
                 'subtitle' => 'lorem da lorem',
                 'description' => '<b>Specifications</b>:<br />
                     20mg Nicotine Salt (2%) E-Liquid <br />
-                    Capacity: 2.0ml <br />
                     Puffs: Up to 650 <br />
                     Nicotine Per Puff: 66mcg <br />
                     Battery: 550mAh',
